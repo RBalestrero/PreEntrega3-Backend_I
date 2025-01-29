@@ -28,6 +28,7 @@ router.put("/:cid", async (req, res) => {
   try {
     const { cid } = req.params;
     const { products } = req.body;
+    console.log(products);
     const cartFinded = await CartModel.findById(cid).lean();
     if(!cartFinded) res.status(404).json({ error: "Error" });
 
@@ -38,7 +39,7 @@ router.put("/:cid", async (req, res) => {
 
     const cart = await CartModel.findByIdAndUpdate(cid, newCart, {
       new: true,
-    }).populate('products.product');
+    }).populate('productos.producto');
 
     res.status(201).json({ payload: cart });
   } catch (error) {
@@ -74,8 +75,26 @@ router.post("/:cid/products/:pid", async (req, res) => {
 
 router.delete("/:cid/products/:pid", async (req, res) => {
   try {
-    const cart = await cartModel.deleteOne({ _id: req.params.cid });
-    res.json(cart);
+    const cartFinded = await CartModel.findById(req.params.cid);
+
+    if(!cartFinded) res.status(404).json({ error: "Error" });
+    const index = cartFinded.products.findIndex(product => product.product._id.toString() === pid);
+    if(!product) res.status(404).json({ error: "Error" });
+    cartFinded.products.split(index,1);
+    const newProduct = {
+      ...product,
+      cantidad: product.cantidad - 1
+    };
+
+    const cart = await CartModel.findByIdAndUpdate(cid, {
+      $set: {
+        "products.$": newProduct
+      }
+    }, {
+      new: true,
+    }).populate('products.product');
+
+    res.status(201).json({ payload: newProduct });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
