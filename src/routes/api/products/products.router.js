@@ -92,8 +92,8 @@ router.put("/:pid", async (req, res) => {
 
 router.delete("/:pid", async (req, res) => {
   try {
-    const product = await prodManager.delete(req.params.pid);
-    res.send(`${product.title} se elimino correctamente`);
+    const result = await ProductModel.findByIdAndDelete(req.params.pid);
+    res.status(201).json({payload: result});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
