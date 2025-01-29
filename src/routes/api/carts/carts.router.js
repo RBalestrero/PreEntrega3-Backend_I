@@ -16,30 +16,30 @@ router.post("/", async (req, res) => {
 router.get("/:cid", async (req, res) => {
   try {
     const { cid } = req.params;
-    const cartFinded = await CartModel.findById(cid).populate('products.product');
+    const cartFinded = await CartModel.findById(cid).populate('productos.producto');
     const status = cartFinded ? 200 : 404;
-    res.status(status).json({ payload: cartFinded?.products });
+    res.status(status).json({ payload: cartFinded });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+
 router.put("/:cid", async (req, res) => {
   try {
     const { cid } = req.params;
-    const { products } = req.body;
-    console.log(products);
+    const { productos } = req.body;
     const cartFinded = await CartModel.findById(cid).lean();
     if(!cartFinded) res.status(404).json({ error: "Error" });
 
     const newCart = {
       ...cartFinded,
-      products
+      productos
     };
 
     const cart = await CartModel.findByIdAndUpdate(cid, newCart, {
       new: true,
-    }).populate('productos.producto');
+    });
 
     res.status(201).json({ payload: cart });
   } catch (error) {
@@ -75,12 +75,11 @@ router.post("/:cid/products/:pid", async (req, res) => {
 
 router.delete("/:cid/products/:pid", async (req, res) => {
   try {
-    const cartFinded = await CartModel.findById(req.params.cid);
-
+    const { cid, pid } = req.params;
+    const cartFinded = await CartModel.findById(cid);
     if(!cartFinded) res.status(404).json({ error: "Error" });
-    const index = cartFinded.products.findIndex(product => product.product._id.toString() === pid);
+    const product = cartFinded.products.find(product => product.product._id.toString() === pid);
     if(!product) res.status(404).json({ error: "Error" });
-    cartFinded.products.split(index,1);
     const newProduct = {
       ...product,
       cantidad: product.cantidad - 1
@@ -99,7 +98,6 @@ router.delete("/:cid/products/:pid", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 
 export default router;
