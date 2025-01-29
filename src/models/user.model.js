@@ -15,6 +15,6 @@ const userSchema = new Schema({
     gender: String
 })
 
-userSchema.plugin(mongoosePaginate)
+userSchema.plugin(mongoosePaginate);
 
-export const UserModel = model(userCollection, userSchema)
+export default model(userCollection, userSchema);

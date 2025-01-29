@@ -17,4 +17,4 @@ const carritoSchema = new Schema({
     },
 })
 
-export const carritoModel = model(carritoColeccion, carritoSchema)
+export const CartModel = model(carritoColeccion, carritoSchema)
