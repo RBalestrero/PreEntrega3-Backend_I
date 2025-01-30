@@ -11,6 +11,7 @@
     background-color: #f2f2f2;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin: 20px;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -50,4 +51,8 @@
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
+}
+
+.imagen {
+    width: 150px;
 }
