@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:pid", async (req, res) => {
   try {
-    const product = await ProductModel.findById(req.params.pid);
+    const result = await ProductModel.findById(req.params.pid);
     res.status(201).json({payload: result});
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -46,7 +46,7 @@ router.get("/:pid", async (req, res) => {
 
 router.post("/", uploader.single("file"), async (req, res) => { 
   try {
-    if (!req.file) throw new Error("Ocurrio un error al subir el archivo");
+    // if (!req.file) throw new Error("Ocurrio un error al subir el archivo");
     if (!req.body.title) throw new Error("title is required");
     if (!req.body.description) throw new Error("description is required");
     if (!req.body.code) throw new Error("code is required");
