@@ -26,6 +26,7 @@ router.get("/", async (req, res) => {
       }
     );
 
+
     res.json({
       ...products,
       status: "success",
@@ -67,7 +68,6 @@ router.post("/", uploader.single("file"), async (req, res) => {
 
 router.put("/:pid", async (req, res) => {
   try {
-    console.log(req.body);
     const product = await ProductModel.findById(req.params.pid);
     if(!product) return req.status(404).json({error: "Product not found"});
     product.title = req.body.title ?? product.title;

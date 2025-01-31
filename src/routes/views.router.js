@@ -13,9 +13,8 @@ router.get("/", async (req, res) => {
             }
         });
         const data = await response.json();
-        // res.render("product");
         res.render("products", {
-            products: data.payload,
+            products: data,
             status: data.status
         });
     }
