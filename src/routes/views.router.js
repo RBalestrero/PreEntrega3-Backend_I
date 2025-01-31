@@ -2,10 +2,6 @@ import express from "express";
 
 const router = express.Router();
 
-// router.get("/", (req, res) => {
-//     res.render("home");
-// });
-
 router.get("/", async (req, res) => {
     try{
         
@@ -13,7 +9,6 @@ router.get("/", async (req, res) => {
         const response = await fetch(`http://localhost:8080/api/products?limit=${limit}&page=${page}sort=${sort}`,{
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
                 "Accept": "application/json"
             }
         });
@@ -37,13 +32,10 @@ router.get("/product/:pid", async (req, res) => {
         const response = await fetch(`http://localhost:8080/api/products/${pid}`,{
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
                 "Accept": "application/json"
             }
         });
         const data = await response.json();
-    
-        console.log(data.payload);
         
         res.render('product', {
             products: data.payload,
@@ -55,29 +47,6 @@ router.get("/product/:pid", async (req, res) => {
         res.status(500).json({error: error.message});
     }
 
-});
-
-router.get("/:pid", async (req, res) => {
-    try{
-        const {pid} = req.params;
-        const response = await fetch(`http://localhost:8080/api/products/${pid}`,{
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        });
-        const data = await response.json();
-        // console.log(data);
-        res.json({products: data.payload, status: data.status});
-        // res.render("product", {
-        //     products: data.payload,
-        //     status: data.status
-        // });
-    }
-    catch(error){
-        res.status(500).json({error: error.message});
-    }
 });
 
 router.get("/realtimeproducts", (req, res) => {

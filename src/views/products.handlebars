@@ -9,8 +9,10 @@
             <p class="card-text">{{category}}</p>
             <p class="card-text">${{price}}</p>
             <p class="card-text">{{stock}} Unidades</p> --}}
-            <button class="view-product" data-id="{{_id}}" onclick="window.location.href='/product/{{_id}}'">Ver</button>
-            <button class="add-cart" onclick="addToCart({{_id}})">Añadir al carrito</button>
+            <div class="buttons">
+                <button class="view-product" data-id="{{_id}}" onclick="window.location.href='/product/{{_id}}'">Ver</button>
+                <button class="add-cart" onclick="addToCart({{_id}})">Añadir al carrito</button>
+            </div>
         </div>
     </div>
     {{/each}}

@@ -8,9 +8,9 @@
             <p class="card-text">{{products.category}}</p>
             <p class="card-text">${{products.price}}</p>
             <p class="card-text">{{products.stock}} Unidades</p>
-            <button class="add-cart" onclick="addToCart({{_id}})">Añadir al carrito</button>
+            <div class="buttons">
+                <button class="add-cart" onclick="addToCart({{_id}})">Añadir al carrito</button>
+            </div>
         </div>
     </div>
 </div>
-
-<script src="/js/productos.js" type="module"></script>

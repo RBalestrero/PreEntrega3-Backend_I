@@ -67,7 +67,17 @@ router.post("/", uploader.single("file"), async (req, res) => {
 
 router.put("/:pid", async (req, res) => {
   try {
-    const product = await ProductModel.findByIdAndUpdate(req.params.pid);
+    console.log(req.body);
+    const product = await ProductModel.findById(req.params.pid);
+    if(!product) return req.status(404).json({error: "Product not found"});
+    product.title = req.body.title ?? product.title;
+    product.description = req.body.description ?? product.description;
+    product.code = req.body.code ?? product.code;
+    product.category = req.body.category ?? product.category;
+    product.price = req.body.price ?? product.price;
+    product.stock = req.body.stock ?? product.stock;
+    product.thumbnail = req.body.thumbnail ?? product.thumbnail;
+    const result = await ProductModel.findByIdAndUpdate(req.params.pid, product, {new: true});
     res.status(201).json({payload: result});
   } catch (error) {
     res.status(500).json({ error: error.message });
