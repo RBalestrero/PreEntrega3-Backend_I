@@ -56,3 +56,14 @@
 .imagen {
     width: 150px;
 }
+
+.view-product {
+    width: 200px;
+     background-color: rgb(196, 0, 251);
+    color: white;
+   border: none;
+   padding: 10px 20px;
+   border-radius: 5px;
+   font-size: 1rem; 
+   cursor: pointer;
+}

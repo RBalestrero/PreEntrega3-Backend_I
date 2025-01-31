@@ -1,3 +1,16 @@
-<div id="productos">dsadsad</div>
+<div id="productos">
+    <div class="card">
+        <div class="card-body">
+            <img class="imagen" src="/static/{{products.thumbnail}}" alt="thumbnail">
+            <h5 class="card-title">{{products.title}}</h5>
+            <p class="card-text">{{products.description}}</p>
+            <p class="card-text">Código: {{products.code}}</p>
+            <p class="card-text">{{products.category}}</p>
+            <p class="card-text">${{products.price}}</p>
+            <p class="card-text">{{products.stock}} Unidades</p>
+            <button class="add-cart" onclick="addToCart({{_id}})">Añadir al carrito</button>
+        </div>
+    </div>
+</div>
 
 <script src="/js/productos.js" type="module"></script>
